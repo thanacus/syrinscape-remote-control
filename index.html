@@ -1,0 +1,249 @@
+<html>
+<head>
+<title>Player</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-bootstrap/0.5pre/assets/css/bootstrap.min.css" />
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+
+<script language="javascript">
+	function play(elementId) {
+	
+		var authToken = $("#token").val();
+		var url = "https://syrinscape.com/online/frontend-api/elements/" + elementId + "/play/?auth_token=" + authToken;
+		$.ajax({
+			  url: url
+	    });
+	}
+	
+	$(document).ready(function() {
+		$(".draggable").each(function(idx) {
+			$(this).draggable();
+		});
+	});
+</script>
+<style>
+#auth {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 500px;
+    z-index: 99;
+	background-color: #aaaaaa;
+	padding: 5px;
+}
+
+.main {
+	position: relative;
+	top: 25px;
+}
+
+.playing {
+
+}
+
+.stopped {
+
+}
+
+a {
+	color: blue;
+	cursor: pointer;
+}
+
+.draggable {
+	width: 100px;
+	height: 100px;
+	background: radial-gradient(#ffaa33, #333333);
+	border-radius: 50%;
+	text-align: center;
+	cursor: pointer;
+}
+
+.draggable > span {
+    padding: 3px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 30px;
+	color: white;
+	font-weight: bold;
+}
+
+#container {
+	position: relative;
+	top: 200px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+</style>
+</head>
+
+<body>
+<div id="auth"><span>Auth Token:</span><input type="text" id="token" value="" style="width: 300px"/></span></div>
+<div id="container">
+	<div class="draggable"><span onclick="javascript:play(1174795);">Dramatic note</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222290);">Statue smashed</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222291);">Dispel Magic</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222292);">Magic mouth spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222293);">Struck by lightning</span></div>
+	<div class="draggable"><span onclick="javascript:play(1217165);">Fire damage</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222294);">Teleport magic</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222295);">Secret stone door</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222296);">Elder runes activation</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222297);">Large double door</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222298);">Acid pit trap</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222299);">Picking lock</span></div>
+	<div class="draggable"><span onclick="javascript:play(1222303);">Demiplanes collapse</span></div>
+	<div class="draggable"><span onclick="javascript:play(961708);">Heroes triumphant oneshot</span></div>
+	<div class="draggable"><span onclick="javascript:play(961709);">Taking damage</span></div>
+	<div class="draggable"><span onclick="javascript:play(961710);">Open door</span></div>
+	<div class="draggable"><span onclick="javascript:play(1018312);">Secret stone door</span></div>
+	<div class="draggable"><span onclick="javascript:play(961712);">Picking lock</span></div>
+	<div class="draggable"><span onclick="javascript:play(1022787);">Thunder claps</span></div>
+	<div class="draggable"><span onclick="javascript:play(1065131);">Cure Wounds</span></div>
+	<div class="draggable"><span onclick="javascript:play(1065132);">Turn undead</span></div>
+	<div class="draggable"><span onclick="javascript:play(1065134);">Portcullis open</span></div>
+	<div class="draggable"><span onclick="javascript:play(1065135);">Portcullis close</span></div>
+	<div class="draggable"><span onclick="javascript:play(1191406);">Alarm spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(1468108);">Scrapes</span></div>
+	<div class="draggable"><span onclick="javascript:play(1468109);">Roars</span></div>
+	<div class="draggable"><span onclick="javascript:play(1468112);">Wolf</span></div>
+	<div class="draggable"><span onclick="javascript:play(1468094);">Snapping</span></div>
+	<div class="draggable"><span onclick="javascript:play(1468095);">Grunting</span></div>
+	<div class="draggable"><span onclick="javascript:play(503509);">Guards</span></div>
+	<div class="draggable"><span onclick="javascript:play(502347);">Taking damage</span></div>
+	<div class="draggable"><span onclick="javascript:play(503474);">Smash door</span></div>
+	<div class="draggable"><span onclick="javascript:play(1683533);">Pipes of haunting</span></div>
+	<div class="draggable"><span onclick="javascript:play(1683534);">Detect Magic</span></div>
+	<div class="draggable"><span onclick="javascript:play(1683535);">Knock</span></div>
+	<div class="draggable"><span onclick="javascript:play(500623);">Golem grunts</span></div>
+	<div class="draggable"><span onclick="javascript:play(620103);">0th level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620104);">1st level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620105);">2nd level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620106);">3rd level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620107);">4th level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620126);">5th level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620108);">6th level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620109);">7th level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620110);">8th level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620111);">9th level spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(620128);">Animal Friendship/Speak with Animals</span></div>
+	<div class="draggable"><span onclick="javascript:play(620130);">Barkskin</span></div>
+	<div class="draggable"><span onclick="javascript:play(620131);">Charm Person</span></div>
+	<div class="draggable"><span onclick="javascript:play(620132);">Conjour Celestial</span></div>
+	<div class="draggable"><span onclick="javascript:play(620113);">Create or Destroy Water</span></div>
+	<div class="draggable"><span onclick="javascript:play(620117);">Cure wounds 1-2</span></div>
+	<div class="draggable"><span onclick="javascript:play(620118);">Cure wounds 3-4</span></div>
+	<div class="draggable"><span onclick="javascript:play(620119);">Cure wounds 5-6</span></div>
+	<div class="draggable"><span onclick="javascript:play(620120);">Cure wounds 7-9</span></div>
+	<div class="draggable"><span onclick="javascript:play(620114);">Detect Magic</span></div>
+	<div class="draggable"><span onclick="javascript:play(620115);">Detect Poison and Disease</span></div>
+	<div class="draggable"><span onclick="javascript:play(620116);">Dispel Magic</span></div>
+	<div class="draggable"><span onclick="javascript:play(620112);">Enhance Ability</span></div>
+	<div class="draggable"><span onclick="javascript:play(1171149);">Flaming Sphere</span></div>
+	<div class="draggable"><span onclick="javascript:play(620133);">Fog Cloud</span></div>
+	<div class="draggable"><span onclick="javascript:play(620134);">Goodberry</span></div>
+	<div class="draggable"><span onclick="javascript:play(620121);">Hold Person</span></div>
+	<div class="draggable"><span onclick="javascript:play(620135);">Jump</span></div>
+	<div class="draggable"><span onclick="javascript:play(620124);">Lesser Restoration</span></div>
+	<div class="draggable"><span onclick="javascript:play(620136);">Longstrider</span></div>
+	<div class="draggable"><span onclick="javascript:play(620122);">Magic Circle</span></div>
+	<div class="draggable"><span onclick="javascript:play(620125);">Mending</span></div>
+	<div class="draggable"><span onclick="javascript:play(620137);">Mold Earth</span></div>
+	<div class="draggable"><span onclick="javascript:play(620138);">Poison spray</span></div>
+	<div class="draggable"><span onclick="javascript:play(620139);">Primal Savagery</span></div>
+	<div class="draggable"><span onclick="javascript:play(620123);">Protection from Energy</span></div>
+	<div class="draggable"><span onclick="javascript:play(620140);">Reverse Gravity</span></div>
+	<div class="draggable"><span onclick="javascript:play(620141);">Shillelagh</span></div>
+	<div class="draggable"><span onclick="javascript:play(620143);">Spike Growth</span></div>
+	<div class="draggable"><span onclick="javascript:play(620144);">Stoneskin</span></div>
+	<div class="draggable"><span onclick="javascript:play(620145);">Thorn Whip</span></div>
+	<div class="draggable"><span onclick="javascript:play(620146);">Thunderwave</span></div>
+	<div class="draggable"><span onclick="javascript:play(627205);">Wildshape</span></div>
+	<div class="draggable"><span onclick="javascript:play(1552310);">Battle stab</span></div>
+	<div class="draggable"><span onclick="javascript:play(837872);">Red dragon roar</span></div>
+	<div class="draggable"><span onclick="javascript:play(1789723);">Finger of death</span></div>
+	<div class="draggable"><span onclick="javascript:play(1789724);">Flame strike</span></div>
+	<div class="draggable"><span onclick="javascript:play(1789726);">Cone of cold</span></div>
+	<div class="draggable"><span onclick="javascript:play(1789732);">Chill touch</span></div>
+	<div class="draggable"><span onclick="javascript:play(1789730);">Scorching ray</span></div>
+	<div class="draggable"><span onclick="javascript:play(1834783);">Orchestral hit</span></div>
+	<div class="draggable"><span onclick="javascript:play(1835287);">Orchestral hit</span></div>
+	<div class="draggable"><span onclick="javascript:play(1789562);">Breath weapon</span></div>
+	<div class="draggable"><span onclick="javascript:play(1828522);">Prismatic wall</span></div>
+	<div class="draggable"><span onclick="javascript:play(1828541);">Prismatic spray</span></div>
+	<div class="draggable"><span onclick="javascript:play(1122071);">Teleported</span></div>
+	<div class="draggable"><span onclick="javascript:play(1122052);">Laugh</span></div>
+	<div class="draggable"><span onclick="javascript:play(1104942);">Hobgoblin cry</span></div>
+	<div class="draggable"><span onclick="javascript:play(1176553);">Hobgoblin grunt</span></div>
+	<div class="draggable"><span onclick="javascript:play(1148626);">Dramatic note</span></div>
+	<div class="draggable"><span onclick="javascript:play(1144600);">Detect Magic</span></div>
+	<div class="draggable"><span onclick="javascript:play(1144599);">Picking lock</span></div>
+	<div class="draggable"><span onclick="javascript:play(1144597);">Secret stone door</span></div>
+	<div class="draggable"><span onclick="javascript:play(1171352);">Crystal door opens</span></div>
+	<div class="draggable"><span onclick="javascript:play(1149072);">Mind flayer</span></div>
+	<div class="draggable"><span onclick="javascript:play(1160368);">Githyanki warrior cry</span></div>
+	<div class="draggable"><span onclick="javascript:play(1171350);">Crystal golem cries</span></div>
+	<div class="draggable"><span onclick="javascript:play(1148908);">Red dragon roar</span></div>
+	<div class="draggable"><span onclick="javascript:play(1296342);">Mind blast</span></div>
+	<div class="draggable"><span onclick="javascript:play(1296343);">Flayer note</span></div>
+	<div class="draggable"><span onclick="javascript:play(1296344);">Extract brain</span></div>
+	<div class="draggable"><span onclick="javascript:play(1495308);">Official D&D</span></div>
+	<div class="draggable"><span onclick="javascript:play(1021121);">Roars</span></div>
+	<div class="draggable"><span onclick="javascript:play(1025943);">Tail attack</span></div>
+	<div class="draggable"><span onclick="javascript:play(1025959);">Radiant breath</span></div>
+	<div class="draggable"><span onclick="javascript:play(703758);">Punch</span></div>
+
+	<div class="draggable"><span onclick="javascript:play(662443);">Charm Person</span></div>
+	<div class="draggable"><span onclick="javascript:play(662428);">Detect Magic</span></div>
+	<div class="draggable"><span onclick="javascript:play(662447);">Glyph of warding</span></div>
+	<div class="draggable"><span onclick="javascript:play(662429);">Identify</span></div>
+	<div class="draggable"><span onclick="javascript:play(662452);">Invisibility</span></div>
+	<div class="draggable"><span onclick="javascript:play(662461);">To arms</span></div>
+	<div class="draggable"><span onclick="javascript:play(699315);">Mastiff growl</span></div>
+	<div class="draggable"><span onclick="javascript:play(700991);">Taking damage</span></div>
+
+	<div class="draggable"><span onclick="javascript:play(311754);">Thunder claps (softer)</span></div>
+	<div class="draggable"><span onclick="javascript:play(311755);">Thunder claps</span></div>
+	<div class="draggable"><span onclick="javascript:play(311757);">Horses</span></div>
+	<div class="draggable"><span onclick="javascript:play(311758);">Cows</span></div>
+	<div class="draggable"><span onclick="javascript:play(311759);">Sheep</span></div>
+	<div class="draggable"><span onclick="javascript:play(311760);">Dogs</span></div>
+	<div class="draggable"><span onclick="javascript:play(311761);">Passing by</span></div>
+	<div class="draggable"><span onclick="javascript:play(129);">Horse</span></div>
+	<div class="draggable"><span onclick="javascript:play(156);">Cow</span></div>
+	<div class="draggable"><span onclick="javascript:play(160);">Rooster</span></div>
+	<div class="draggable"><span onclick="javascript:play(9412);">Force missile</span></div>
+	<div class="draggable"><span onclick="javascript:play(20);">Fire spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(22);">Lightning spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(21);">Ice spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(18);">Blade spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(19);">Charm spell</span></div>
+	<div class="draggable"><span onclick="javascript:play(115);">Battle cries</span></div>
+	<div class="draggable"><span onclick="javascript:play(117);">Growls</span></div>
+	<div class="draggable"><span onclick="javascript:play(116);">Curses</span></div>
+	<div class="draggable"><span onclick="javascript:play(16);">Ahhhhhh</span></div>
+	<div class="draggable"><span onclick="javascript:play(23);">Ooooooo</span></div>
+	<div class="draggable"><span onclick="javascript:play(17);">Gasp</span></div>
+	<div class="draggable"><span onclick="javascript:play(3372);">Huzzah</span></div>
+	<div class="draggable"><span onclick="javascript:play(3373);">Yay!</span></div>
+	<div class="draggable"><span onclick="javascript:play(3374);">Sad trombone</span></div>
+	<div class="draggable"><span onclick="javascript:play(1035);">Sword clash</span></div>
+	<div class="draggable"><span onclick="javascript:play(1041);">Sword swoosh</span></div>
+	<div class="draggable"><span onclick="javascript:play(1199);">Weapon impact</span></div>
+	<div class="draggable"><span onclick="javascript:play(1039);">Arrow in wood</span></div>
+	<div class="draggable"><span onclick="javascript:play(1040);">Arrow in flesh</span></div>
+	<div class="draggable"><span onclick="javascript:play(3375);">Dramatic note</span></div>
+	<div class="draggable"><span onclick="javascript:play(7764);">Victory</span></div>
+	<div class="draggable"><span onclick="javascript:play(112565);">Battle cry</span></div>
+	<div class="draggable"><span onclick="javascript:play(112575);">Growl</span></div>
+	<div class="draggable"><span onclick="javascript:play(112578);">Curse</span></div>
+	
+	
+</div>
+</html>
