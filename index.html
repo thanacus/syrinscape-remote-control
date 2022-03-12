@@ -10,15 +10,34 @@
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 
 <script language="javascript">
+	const Category = Object.freeze({
+		Ambient: 'ambient',
+		Action: 'action',
+		Magic: 'magic',
+		Combat: 'combat',
+		Misc: 'misc',
+		Creature: 'creature',
+	});
+
 	function play(elementId) {
-	
 		var authToken = $.urlParam("auth_token")
 		var url = "https://syrinscape.com/online/frontend-api/elements/" + elementId + "/play/?auth_token=" + authToken;
 		$.ajax({
 			  url: url
 	    });
 	}
-				
+
+	function onCategoryChange(category) {
+		$('.draggable').show();
+		if (category !== '') {
+			const excludedCategoryClasses = Object.entries(Category)
+				.filter(([categoryName, categoryClassName]) => categoryName !== category)
+				.map(([categoryName, categoryClassName]) => `.category-${categoryClassName}`)
+				.join(', ');
+			$(`${excludedCategoryClasses}`).hide();
+		}
+	}
+
 	$.urlParam = function(name){
     	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
     	if (results==null) {
@@ -26,13 +45,19 @@
     	}
     	return decodeURI(results[1]) || 0;
 	}
-	
+
 	$(document).ready(function() {
 		$(".draggable").each(function(idx) {
 			$(this).draggable();
 		});
-		
+
 		$("#token").val($.urlParam("auth_token"));
+
+		const filterCategoryElement = $('#sound-category');
+		Object.entries(Category).forEach(([categoryName, category]) => {
+			filterCategoryElement.append(`<option value="${categoryName}">${categoryName}</option>`);
+		});
+		filterCategoryElement.change((event) => onCategoryChange(event.target.value));
 	});
 </script>
 <style>
@@ -50,6 +75,16 @@
 .main {
 	position: relative;
 	top: 25px;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.category-label {
+	margin-right: 4px;
 }
 
 .playing {
@@ -115,170 +150,178 @@ a {
 
 <body style="background-color: #e8c599;">
 <div id="working"></div>
+
+<div class="flex-row">
+	<label class="category-label">Category:</label>
+
+	<select id="sound-category">
+		<option value=""></option>
+	</select>
+</div>
 <div id="container">
-	<div class="draggable"><span onclick="javascript:play(346); return false;" class="play-button">&#x23F5;</span><span class="description">A door swings shut</span></div>
-	<div class="draggable"><span onclick="javascript:play(16); return false;" class="play-button">&#x23F5;</span><span class="description">Ahhhhhh</span></div>
-	<div class="draggable"><span onclick="javascript:play(2599); return false;" class="play-button">&#x23F5;</span><span class="description">Alarms</span></div>
-	<div class="draggable"><span onclick="javascript:play(2922); return false;" class="play-button">&#x23F5;</span><span class="description">Alchemist's Fire</span></div>
-	<div class="draggable"><span onclick="javascript:play(1040); return false;" class="play-button">&#x23F5;</span><span class="description">Arrow in flesh</span></div>
-	<div class="draggable"><span onclick="javascript:play(1039); return false;" class="play-button">&#x23F5;</span><span class="description">Arrow in wood</span></div>
-	<div class="draggable"><span onclick="javascript:play(665); return false;" class="play-button">&#x23F5;</span><span class="description">Arrrrrr!</span></div>
-	<div class="draggable"><span onclick="javascript:play(571); return false;" class="play-button">&#x23F5;</span><span class="description">Bar door</span></div>
-	<div class="draggable"><span onclick="javascript:play(9350); return false;" class="play-button">&#x23F5;</span><span class="description">Battle begins</span></div>
-	<div class="draggable"><span onclick="javascript:play(115); return false;" class="play-button">&#x23F5;</span><span class="description">Battle cries</span></div>
-	<div class="draggable"><span onclick="javascript:play(3015); return false;" class="play-button">&#x23F5;</span><span class="description">Bear roar</span></div>
-	<div class="draggable"><span onclick="javascript:play(4400); return false;" class="play-button">&#x23F5;</span><span class="description">Being eaten</span></div>
-	<div class="draggable"><span onclick="javascript:play(8767); return false;" class="play-button">&#x23F5;</span><span class="description">Big roar</span></div>
-	<div class="draggable"><span onclick="javascript:play(3297); return false;" class="play-button">&#x23F5;</span><span class="description">Big splash</span></div>
-	<div class="draggable"><span onclick="javascript:play(3628); return false;" class="play-button">&#x23F5;</span><span class="description">Bite</span></div>
-	<div class="draggable"><span onclick="javascript:play(2595); return false;" class="play-button">&#x23F5;</span><span class="description">Bleeding</span></div>
-	<div class="draggable"><span onclick="javascript:play(2738); return false;" class="play-button">&#x23F5;</span><span class="description">Blessing</span></div>
-	<div class="draggable"><span onclick="javascript:play(8887); return false;" class="play-button">&#x23F5;</span><span class="description">Blight</span></div>
-	<div class="draggable"><span onclick="javascript:play(2481); return false;" class="play-button">&#x23F5;</span><span class="description">Bow critical</span></div>
-	<div class="draggable"><span onclick="javascript:play(2478); return false;" class="play-button">&#x23F5;</span><span class="description">Bow draw</span></div>
-	<div class="draggable"><span onclick="javascript:play(2480); return false;" class="play-button">&#x23F5;</span><span class="description">Bow fire</span></div>
-	<div class="draggable"><span onclick="javascript:play(3572); return false;" class="play-button">&#x23F5;</span><span class="description">Breath Weapon</span></div>
-	<div class="draggable"><span onclick="javascript:play(1092); return false;" class="play-button">&#x23F5;</span><span class="description">Bridge Collapse</span></div>
-	<div class="draggable"><span onclick="javascript:play(2598); return false;" class="play-button">&#x23F5;</span><span class="description">Burning</span></div>
-	<div class="draggable"><span onclick="javascript:play(6254); return false;" class="play-button">&#x23F5;</span><span class="description">Burp</span></div>
-	<div class="draggable"><span onclick="javascript:play(5378); return false;" class="play-button">&#x23F5;</span><span class="description">Camel</span></div>
-	<div class="draggable"><span onclick="javascript:play(2751); return false;" class="play-button">&#x23F5;</span><span class="description">Chain-mail sound</span></div>
-	<div class="draggable"><span onclick="javascript:play(2617); return false;" class="play-button">&#x23F5;</span><span class="description">Charm</span></div>
-	<div class="draggable"><span onclick="javascript:play(3836); return false;" class="play-button">&#x23F5;</span><span class="description">Cheers</span></div>
-	<div class="draggable"><span onclick="javascript:play(1547); return false;" class="play-button">&#x23F5;</span><span class="description">Claw scratch</span></div>
-	<div class="draggable"><span onclick="javascript:play(3292); return false;" class="play-button">&#x23F5;</span><span class="description">Claw tear</span></div>
-	<div class="draggable"><span onclick="javascript:play(2446); return false;" class="play-button">&#x23F5;</span><span class="description">Climbing rope</span></div>
-	<div class="draggable"><span onclick="javascript:play(2442); return false;" class="play-button">&#x23F5;</span><span class="description">Climbing wall</span></div>
-	<div class="draggable"><span onclick="javascript:play(826); return false;" class="play-button">&#x23F5;</span><span class="description">Close drips</span></div>
-	<div class="draggable"><span onclick="javascript:play(2752); return false;" class="play-button">&#x23F5;</span><span class="description">Cloth sound</span></div>
-	<div class="draggable"><span onclick="javascript:play(3870); return false;" class="play-button">&#x23F5;</span><span class="description">Coal</span></div>
-	<div class="draggable"><span onclick="javascript:play(2594); return false;" class="play-button">&#x23F5;</span><span class="description">Coinpurse</span></div>
-	<div class="draggable"><span onclick="javascript:play(2443); return false;" class="play-button">&#x23F5;</span><span class="description">Coins</span></div>
-	<div class="draggable"><span onclick="javascript:play(4025); return false;" class="play-button">&#x23F5;</span><span class="description">Coughs</span></div>
-	<div class="draggable"><span onclick="javascript:play(156); return false;" class="play-button">&#x23F5;</span><span class="description">Cow</span></div>
-	<div class="draggable"><span onclick="javascript:play(3872); return false;" class="play-button">&#x23F5;</span><span class="description">Cows</span></div>
-	<div class="draggable"><span onclick="javascript:play(3007); return false;" class="play-button">&#x23F5;</span><span class="description">Crazy laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(2703); return false;" class="play-button">&#x23F5;</span><span class="description">Crossbow hit</span></div>
-	<div class="draggable"><span onclick="javascript:play(3858); return false;" class="play-button">&#x23F5;</span><span class="description">Crow</span></div>
-	<div class="draggable"><span onclick="javascript:play(5517); return false;" class="play-button">&#x23F5;</span><span class="description">Cursed bell</span></div>
-	<div class="draggable"><span onclick="javascript:play(116); return false;" class="play-button">&#x23F5;</span><span class="description">Curses</span></div>
-	<div class="draggable"><span onclick="javascript:play(3613); return false;" class="play-button">&#x23F5;</span><span class="description">Dagger</span></div>
-	<div class="draggable"><span onclick="javascript:play(2149); return false;" class="play-button">&#x23F5;</span><span class="description">Dah dah dum</span></div>
-	<div class="draggable"><span onclick="javascript:play(5842); return false;" class="play-button">&#x23F5;</span><span class="description">Deep gurgle</span></div>
-	<div class="draggable"><span onclick="javascript:play(373); return false;" class="play-button">&#x23F5;</span><span class="description">Deep laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(9345); return false;" class="play-button">&#x23F5;</span><span class="description">Deep rumble</span></div>
-	<div class="draggable"><span onclick="javascript:play(3835); return false;" class="play-button">&#x23F5;</span><span class="description">Dice</span></div>
-	<div class="draggable"><span onclick="javascript:play(1427); return false;" class="play-button">&#x23F5;</span><span class="description">Dire bear</span></div>
-	<div class="draggable"><span onclick="javascript:play(1826); return false;" class="play-button">&#x23F5;</span><span class="description">Distant Roars</span></div>
-	<div class="draggable"><span onclick="javascript:play(1034); return false;" class="play-button">&#x23F5;</span><span class="description">Distant ghoul Wails</span></div>
-	<div class="draggable"><span onclick="javascript:play(1557); return false;" class="play-button">&#x23F5;</span><span class="description">Distant growl</span></div>
-	<div class="draggable"><span onclick="javascript:play(3570); return false;" class="play-button">&#x23F5;</span><span class="description">Distant rumble</span></div>
-	<div class="draggable"><span onclick="javascript:play(511); return false;" class="play-button">&#x23F5;</span><span class="description">Distant smash</span></div>
-	<div class="draggable"><span onclick="javascript:play(3005); return false;" class="play-button">&#x23F5;</span><span class="description">Disturbing rumble</span></div>
-	<div class="draggable"><span onclick="javascript:play(3862); return false;" class="play-button">&#x23F5;</span><span class="description">Dog</span></div>
-	<div class="draggable"><span onclick="javascript:play(2248); return false;" class="play-button">&#x23F5;</span><span class="description">Dragon roar</span></div>
-	<div class="draggable"><span onclick="javascript:play(3375); return false;" class="play-button">&#x23F5;</span><span class="description">Dramatic note</span></div>
-	<div class="draggable"><span onclick="javascript:play(256); return false;" class="play-button">&#x23F5;</span><span class="description">Drip</span></div>
-	<div class="draggable"><span onclick="javascript:play(5732); return false;" class="play-button">&#x23F5;</span><span class="description">Eagle call</span></div>
-	<div class="draggable"><span onclick="javascript:play(3959); return false;" class="play-button">&#x23F5;</span><span class="description">Evil giggles</span></div>
-	<div class="draggable"><span onclick="javascript:play(5939); return false;" class="play-button">&#x23F5;</span><span class="description">Evil hiss</span></div>
-	<div class="draggable"><span onclick="javascript:play(241); return false;" class="play-button">&#x23F5;</span><span class="description">Evil laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(2642); return false;" class="play-button">&#x23F5;</span><span class="description">Exertion</span></div>
-	<div class="draggable"><span onclick="javascript:play(765); return false;" class="play-button">&#x23F5;</span><span class="description">Explosion</span></div>
-	<div class="draggable"><span onclick="javascript:play(3874); return false;" class="play-button">&#x23F5;</span><span class="description">Fabric</span></div>
-	<div class="draggable"><span onclick="javascript:play(6257); return false;" class="play-button">&#x23F5;</span><span class="description">Fart</span></div>
-	<div class="draggable"><span onclick="javascript:play(79); return false;" class="play-button">&#x23F5;</span><span class="description">Fire blast</span></div>
-	<div class="draggable"><span onclick="javascript:play(4051); return false;" class="play-button">&#x23F5;</span><span class="description">Frog</span></div>
-	<div class="draggable"><span onclick="javascript:play(3960); return false;" class="play-button">&#x23F5;</span><span class="description">Gas releases</span></div>
-	<div class="draggable"><span onclick="javascript:play(17); return false;" class="play-button">&#x23F5;</span><span class="description">Gasp</span></div>
-	<div class="draggable"><span onclick="javascript:play(3571); return false;" class="play-button">&#x23F5;</span><span class="description">Ghostly wail</span></div>
-	<div class="draggable"><span onclick="javascript:play(827); return false;" class="play-button">&#x23F5;</span><span class="description">Ghoul attack</span></div>
-	<div class="draggable"><span onclick="javascript:play(1289); return false;" class="play-button">&#x23F5;</span><span class="description">Giant War Horn</span></div>
-	<div class="draggable"><span onclick="javascript:play(1366); return false;" class="play-button">&#x23F5;</span><span class="description">Giant noise</span></div>
-	<div class="draggable"><span onclick="javascript:play(1163); return false;" class="play-button">&#x23F5;</span><span class="description">Giant slam attack</span></div>
-	<div class="draggable"><span onclick="javascript:play(303); return false;" class="play-button">&#x23F5;</span><span class="description">Glass smash</span></div>
-	<div class="draggable"><span onclick="javascript:play(6018); return false;" class="play-button">&#x23F5;</span><span class="description">Goblin Laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(615); return false;" class="play-button">&#x23F5;</span><span class="description">Goblin growls</span></div>
-	<div class="draggable"><span onclick="javascript:play(2429); return false;" class="play-button">&#x23F5;</span><span class="description">Grappling hook</span></div>
-	<div class="draggable"><span onclick="javascript:play(2616); return false;" class="play-button">&#x23F5;</span><span class="description">Greasing</span></div>
-	<div class="draggable"><span onclick="javascript:play(2461); return false;" class="play-button">&#x23F5;</span><span class="description">Growl</span></div>
-	<div class="draggable"><span onclick="javascript:play(117); return false;" class="play-button">&#x23F5;</span><span class="description">Growls</span></div>
-	<div class="draggable"><span onclick="javascript:play(238); return false;" class="play-button">&#x23F5;</span><span class="description">Gulls</span></div>
-	<div class="draggable"><span onclick="javascript:play(1166); return false;" class="play-button">&#x23F5;</span><span class="description">Hag</span></div>
-	<div class="draggable"><span onclick="javascript:play(5586); return false;" class="play-button">&#x23F5;</span><span class="description">Hellcat snarls</span></div>
-	<div class="draggable"><span onclick="javascript:play(1515); return false;" class="play-button">&#x23F5;</span><span class="description">Horse</span></div>
-	<div class="draggable"><span onclick="javascript:play(4404); return false;" class="play-button">&#x23F5;</span><span class="description">Huge monster</span></div>
-	<div class="draggable"><span onclick="javascript:play(1272); return false;" class="play-button">&#x23F5;</span><span class="description">Hurled Stone</span></div>
-	<div class="draggable"><span onclick="javascript:play(3372); return false;" class="play-button">&#x23F5;</span><span class="description">Huzzah</span></div>
-	<div class="draggable"><span onclick="javascript:play(2645); return false;" class="play-button">&#x23F5;</span><span class="description">Injury</span></div>
-	<div class="draggable"><span onclick="javascript:play(1426); return false;" class="play-button">&#x23F5;</span><span class="description">Insect flyby</span></div>
-	<div class="draggable"><span onclick="javascript:play(4102); return false;" class="play-button">&#x23F5;</span><span class="description">Into the water</span></div>
-	<div class="draggable"><span onclick="javascript:play(2464); return false;" class="play-button">&#x23F5;</span><span class="description">Laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(22); return false;" class="play-button">&#x23F5;</span><span class="description">Lightning spell</span></div>
-	<div class="draggable"><span onclick="javascript:play(2782); return false;" class="play-button">&#x23F5;</span><span class="description">Longsword hit</span></div>
-	<div class="draggable"><span onclick="javascript:play(374); return false;" class="play-button">&#x23F5;</span><span class="description">Mad laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(3200); return false;" class="play-button">&#x23F5;</span><span class="description">Mastiff woof</span></div>
-	<div class="draggable"><span onclick="javascript:play(2239); return false;" class="play-button">&#x23F5;</span><span class="description">Mysterious howl</span></div>
-	<div class="draggable"><span onclick="javascript:play(1519); return false;" class="play-button">&#x23F5;</span><span class="description">Night Bird</span></div>
-	<div class="draggable"><span onclick="javascript:play(235); return false;" class="play-button">&#x23F5;</span><span class="description">Oh No!</span></div>
-	<div class="draggable"><span onclick="javascript:play(23); return false;" class="play-button">&#x23F5;</span><span class="description">Ooooooo</span></div>
-	<div class="draggable"><span onclick="javascript:play(2693); return false;" class="play-button">&#x23F5;</span><span class="description">Open scrollcase</span></div>
-	<div class="draggable"><span onclick="javascript:play(2437); return false;" class="play-button">&#x23F5;</span><span class="description">Opening lock</span></div>
-	<div class="draggable"><span onclick="javascript:play(259); return false;" class="play-button">&#x23F5;</span><span class="description">Passing a waterfall</span></div>
-	<div class="draggable"><span onclick="javascript:play(2438); return false;" class="play-button">&#x23F5;</span><span class="description">Picking lock</span></div>
-	<div class="draggable"><span onclick="javascript:play(4477); return false;" class="play-button">&#x23F5;</span><span class="description">Pig</span></div>
-	<div class="draggable"><span onclick="javascript:play(3876); return false;" class="play-button">&#x23F5;</span><span class="description">Pigs</span></div>
-	<div class="draggable"><span onclick="javascript:play(364); return false;" class="play-button">&#x23F5;</span><span class="description">Psycho scream</span></div>
-	<div class="draggable"><span onclick="javascript:play(304); return false;" class="play-button">&#x23F5;</span><span class="description">Punch</span></div>
-	<div class="draggable"><span onclick="javascript:play(2450); return false;" class="play-button">&#x23F5;</span><span class="description">Rapier pierce</span></div>
-	<div class="draggable"><span onclick="javascript:play(1841); return false;" class="play-button">&#x23F5;</span><span class="description">Rat</span></div>
-	<div class="draggable"><span onclick="javascript:play(3573); return false;" class="play-button">&#x23F5;</span><span class="description">Roar</span></div>
-	<div class="draggable"><span onclick="javascript:play(113); return false;" class="play-button">&#x23F5;</span><span class="description">Roars</span></div>
-	<div class="draggable"><span onclick="javascript:play(2635); return false;" class="play-button">&#x23F5;</span><span class="description">Robe swoosh</span></div>
-	<div class="draggable"><span onclick="javascript:play(1511); return false;" class="play-button">&#x23F5;</span><span class="description">Rooster</span></div>
-	<div class="draggable"><span onclick="javascript:play(5937); return false;" class="play-button">&#x23F5;</span><span class="description">Rumble</span></div>
-	<div class="draggable"><span onclick="javascript:play(3374); return false;" class="play-button">&#x23F5;</span><span class="description">Sad trombone</span></div>
-	<div class="draggable"><span onclick="javascript:play(2748); return false;" class="play-button">&#x23F5;</span><span class="description">Scimitar hit</span></div>
-	<div class="draggable"><span onclick="javascript:play(363); return false;" class="play-button">&#x23F5;</span><span class="description">Scornful laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(4401); return false;" class="play-button">&#x23F5;</span><span class="description">Scream</span></div>
-	<div class="draggable"><span onclick="javascript:play(3008); return false;" class="play-button">&#x23F5;</span><span class="description">Screams</span></div>
-	<div class="draggable"><span onclick="javascript:play(3626); return false;" class="play-button">&#x23F5;</span><span class="description">Screech</span></div>
-	<div class="draggable"><span onclick="javascript:play(1517); return false;" class="play-button">&#x23F5;</span><span class="description">Sheep</span></div>
-	<div class="draggable"><span onclick="javascript:play(609); return false;" class="play-button">&#x23F5;</span><span class="description">Ship ram</span></div>
-	<div class="draggable"><span onclick="javascript:play(2476); return false;" class="play-button">&#x23F5;</span><span class="description">Shortsword slash</span></div>
-	<div class="draggable"><span onclick="javascript:play(3627); return false;" class="play-button">&#x23F5;</span><span class="description">Slam</span></div>
-	<div class="draggable"><span onclick="javascript:play(82); return false;" class="play-button">&#x23F5;</span><span class="description">Smashing a wooden door</span></div>
-	<div class="draggable"><span onclick="javascript:play(8768); return false;" class="play-button">&#x23F5;</span><span class="description">Snort</span></div>
-	<div class="draggable"><span onclick="javascript:play(974); return false;" class="play-button">&#x23F5;</span><span class="description">Something big out there</span></div>
-	<div class="draggable"><span onclick="javascript:play(258); return false;" class="play-button">&#x23F5;</span><span class="description">Something big</span></div>
-	<div class="draggable"><span onclick="javascript:play(2498); return false;" class="play-button">&#x23F5;</span><span class="description">Spark</span></div>
-	<div class="draggable"><span onclick="javascript:play(5084); return false;" class="play-button">&#x23F5;</span><span class="description">Splash</span></div>
-	<div class="draggable"><span onclick="javascript:play(2692); return false;" class="play-button">&#x23F5;</span><span class="description">Staff hit</span></div>
-	<div class="draggable"><span onclick="javascript:play(1035); return false;" class="play-button">&#x23F5;</span><span class="description">Sword clash</span></div>
-	<div class="draggable"><span onclick="javascript:play(3601); return false;" class="play-button">&#x23F5;</span><span class="description">Thrown stone</span></div>
-	<div class="draggable"><span onclick="javascript:play(1838); return false;" class="play-button">&#x23F5;</span><span class="description">Thunder clap</span></div>
-	<div class="draggable"><span onclick="javascript:play(1007); return false;" class="play-button">&#x23F5;</span><span class="description">Thunder claps (softer)</span></div>
-	<div class="draggable"><span onclick="javascript:play(155); return false;" class="play-button">&#x23F5;</span><span class="description">Thunder claps</span></div>
-	<div class="draggable"><span onclick="javascript:play(5936); return false;" class="play-button">&#x23F5;</span><span class="description">Thunder roll</span></div>
-	<div class="draggable"><span onclick="javascript:play(257); return false;" class="play-button">&#x23F5;</span><span class="description">Toss a rock in</span></div>
-	<div class="draggable"><span onclick="javascript:play(1501); return false;" class="play-button">&#x23F5;</span><span class="description">Tumbling pebble</span></div>
-	<div class="draggable"><span onclick="javascript:play(1164); return false;" class="play-button">&#x23F5;</span><span class="description">Tumbling rocks</span></div>
-	<div class="draggable"><span onclick="javascript:play(2451); return false;" class="play-button">&#x23F5;</span><span class="description">Unsheathe fast</span></div>
-	<div class="draggable"><span onclick="javascript:play(2454); return false;" class="play-button">&#x23F5;</span><span class="description">Unsheathe slow</span></div>
-	<div class="draggable"><span onclick="javascript:play(2460); return false;" class="play-button">&#x23F5;</span><span class="description">Victorious laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(7764); return false;" class="play-button">&#x23F5;</span><span class="description">Victory</span></div>
-	<div class="draggable"><span onclick="javascript:play(5197); return false;" class="play-button">&#x23F5;</span><span class="description">War Horn</span></div>
-	<div class="draggable"><span onclick="javascript:play(1179); return false;" class="play-button">&#x23F5;</span><span class="description">Weapon impact</span></div>
-	<div class="draggable"><span onclick="javascript:play(4052); return false;" class="play-button">&#x23F5;</span><span class="description">Weird bug</span></div>
-	<div class="draggable"><span onclick="javascript:play(114); return false;" class="play-button">&#x23F5;</span><span class="description">Weird distant animals</span></div>
-	<div class="draggable"><span onclick="javascript:play(2434); return false;" class="play-button">&#x23F5;</span><span class="description">Whoosh passed</span></div>
-	<div class="draggable"><span onclick="javascript:play(300); return false;" class="play-button">&#x23F5;</span><span class="description">Wilhelm scream</span></div>
-	<div class="draggable"><span onclick="javascript:play(243); return false;" class="play-button">&#x23F5;</span><span class="description">Witch cackle</span></div>
-	<div class="draggable"><span onclick="javascript:play(5587); return false;" class="play-button">&#x23F5;</span><span class="description">Witch's laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(5584); return false;" class="play-button">&#x23F5;</span><span class="description">Woman laugh</span></div>
-	<div class="draggable"><span onclick="javascript:play(762); return false;" class="play-button">&#x23F5;</span><span class="description">Woman scream</span></div>
-	<div class="draggable"><span onclick="javascript:play(3373); return false;" class="play-button">&#x23F5;</span><span class="description">Yay!</span></div>
-	<div class="draggable"><span onclick="javascript:play(3312); return false;" class="play-button">&#x23F5;</span><span class="description">Zombie Growl</span></div>
-	<div class="draggable"><span onclick="javascript:play(3013); return false;" class="play-button">&#x23F5;</span><span class="description">Zombie Roar</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(346); return false;" class="play-button">&#x23F5;</span><span class="description">A door swings shut</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(16); return false;" class="play-button">&#x23F5;</span><span class="description">Ahhhhhh</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2599); return false;" class="play-button">&#x23F5;</span><span class="description">Alarms</span></div>
+	<div class="draggable category-combat category-action"><span onclick="javascript:play(2922); return false;" class="play-button">&#x23F5;</span><span class="description">Alchemist's Fire</span></div>
+	<div class="draggable category-ambient category-combat><span onclick="javascript:play(1040); return false;" class="play-button">&#x23F5;</span><span class="description">Arrow in flesh</span></div>
+	<div class="draggable category-ambient category-combat"><span onclick="javascript:play(1039); return false;" class="play-button">&#x23F5;</span><span class="description">Arrow in wood</span></div>
+	<div class="draggable category-ambient category-misc"><span onclick="javascript:play(665); return false;" class="play-button">&#x23F5;</span><span class="description">Arrrrrr!</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(571); return false;" class="play-button">&#x23F5;</span><span class="description">Bar door</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(9350); return false;" class="play-button">&#x23F5;</span><span class="description">Battle begins</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(115); return false;" class="play-button">&#x23F5;</span><span class="description">Battle cries</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(3015); return false;" class="play-button">&#x23F5;</span><span class="description">Bear roar</span></div>
+	<div class="draggable category-ambient category-combat"><span onclick="javascript:play(4400); return false;" class="play-button">&#x23F5;</span><span class="description">Being eaten</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(8767); return false;" class="play-button">&#x23F5;</span><span class="description">Big roar</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3297); return false;" class="play-button">&#x23F5;</span><span class="description">Big splash</span></div>
+	<div class="draggable category-ambient category-combat"><span onclick="javascript:play(3628); return false;" class="play-button">&#x23F5;</span><span class="description">Bite</span></div>
+	<div class="draggable category-combat><span onclick="javascript:play(2595); return false;" class="play-button">&#x23F5;</span><span class="description">Bleeding</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2738); return false;" class="play-button">&#x23F5;</span><span class="description">Blessing</span></div>
+	<div class="draggable category-magic category-combat"><span onclick="javascript:play(8887); return false;" class="play-button">&#x23F5;</span><span class="description">Blight</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2481); return false;" class="play-button">&#x23F5;</span><span class="description">Bow critical</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2478); return false;" class="play-button">&#x23F5;</span><span class="description">Bow draw</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2480); return false;" class="play-button">&#x23F5;</span><span class="description">Bow fire</span></div>
+	<div class="draggable category-magic category-combat"><span onclick="javascript:play(3572); return false;" class="play-button">&#x23F5;</span><span class="description">Breath Weapon</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1092); return false;" class="play-button">&#x23F5;</span><span class="description">Bridge Collapse</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2598); return false;" class="play-button">&#x23F5;</span><span class="description">Burning</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(6254); return false;" class="play-button">&#x23F5;</span><span class="description">Burp</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(5378); return false;" class="play-button">&#x23F5;</span><span class="description">Camel</span></div>
+	<div class="draggable category-combat category-ambient"><span onclick="javascript:play(2751); return false;" class="play-button">&#x23F5;</span><span class="description">Chain-mail sound</span></div>
+	<div class="draggable category-magic"><span onclick="javascript:play(2617); return false;" class="play-button">&#x23F5;</span><span class="description">Charm</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3836); return false;" class="play-button">&#x23F5;</span><span class="description">Cheers</span></div>
+	<div class="draggable category-combat category-ambient"><span onclick="javascript:play(1547); return false;" class="play-button">&#x23F5;</span><span class="description">Claw scratch</span></div>
+	<div class="draggable category-combat category-ambient"><span onclick="javascript:play(3292); return false;" class="play-button">&#x23F5;</span><span class="description">Claw tear</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(2446); return false;" class="play-button">&#x23F5;</span><span class="description">Climbing rope</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(2442); return false;" class="play-button">&#x23F5;</span><span class="description">Climbing wall</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(826); return false;" class="play-button">&#x23F5;</span><span class="description">Close drips</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2752); return false;" class="play-button">&#x23F5;</span><span class="description">Cloth sound</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3870); return false;" class="play-button">&#x23F5;</span><span class="description">Coal</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2594); return false;" class="play-button">&#x23F5;</span><span class="description">Coinpurse</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2443); return false;" class="play-button">&#x23F5;</span><span class="description">Coins</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(4025); return false;" class="play-button">&#x23F5;</span><span class="description">Coughs</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(156); return false;" class="play-button">&#x23F5;</span><span class="description">Cow</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(3872); return false;" class="play-button">&#x23F5;</span><span class="description">Cows</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3007); return false;" class="play-button">&#x23F5;</span><span class="description">Crazy laugh</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2703); return false;" class="play-button">&#x23F5;</span><span class="description">Crossbow hit</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(3858); return false;" class="play-button">&#x23F5;</span><span class="description">Crow</span></div>
+	<div class="draggable category-ambient category-misc"><span onclick="javascript:play(5517); return false;" class="play-button">&#x23F5;</span><span class="description">Cursed bell</span></div>
+	<div class="draggable category-ambient category-misc"><span onclick="javascript:play(116); return false;" class="play-button">&#x23F5;</span><span class="description">Curses</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(3613); return false;" class="play-button">&#x23F5;</span><span class="description">Dagger</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(2149); return false;" class="play-button">&#x23F5;</span><span class="description">Dah dah dum</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(5842); return false;" class="play-button">&#x23F5;</span><span class="description">Deep gurgle</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(373); return false;" class="play-button">&#x23F5;</span><span class="description">Deep laugh</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(9345); return false;" class="play-button">&#x23F5;</span><span class="description">Deep rumble</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3835); return false;" class="play-button">&#x23F5;</span><span class="description">Dice</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(1427); return false;" class="play-button">&#x23F5;</span><span class="description">Dire bear</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1826); return false;" class="play-button">&#x23F5;</span><span class="description">Distant Roars</span></div>
+	<div class="draggable category-ambient category-creature"><span onclick="javascript:play(1034); return false;" class="play-button">&#x23F5;</span><span class="description">Distant ghoul Wails</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1557); return false;" class="play-button">&#x23F5;</span><span class="description">Distant growl</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3570); return false;" class="play-button">&#x23F5;</span><span class="description">Distant rumble</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(511); return false;" class="play-button">&#x23F5;</span><span class="description">Distant smash</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3005); return false;" class="play-button">&#x23F5;</span><span class="description">Disturbing rumble</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(3862); return false;" class="play-button">&#x23F5;</span><span class="description">Dog</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(2248); return false;" class="play-button">&#x23F5;</span><span class="description">Dragon roar</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(3375); return false;" class="play-button">&#x23F5;</span><span class="description">Dramatic note</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(256); return false;" class="play-button">&#x23F5;</span><span class="description">Drip</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(5732); return false;" class="play-button">&#x23F5;</span><span class="description">Eagle call</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3959); return false;" class="play-button">&#x23F5;</span><span class="description">Evil giggles</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(5939); return false;" class="play-button">&#x23F5;</span><span class="description">Evil hiss</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(241); return false;" class="play-button">&#x23F5;</span><span class="description">Evil laugh</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2642); return false;" class="play-button">&#x23F5;</span><span class="description">Exertion</span></div>
+	<div class="draggable category-combat category-ambient"><span onclick="javascript:play(765); return false;" class="play-button">&#x23F5;</span><span class="description">Explosion</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3874); return false;" class="play-button">&#x23F5;</span><span class="description">Fabric</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(6257); return false;" class="play-button">&#x23F5;</span><span class="description">Fart</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(79); return false;" class="play-button">&#x23F5;</span><span class="description">Fire blast</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(4051); return false;" class="play-button">&#x23F5;</span><span class="description">Frog</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3960); return false;" class="play-button">&#x23F5;</span><span class="description">Gas releases</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(17); return false;" class="play-button">&#x23F5;</span><span class="description">Gasp</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3571); return false;" class="play-button">&#x23F5;</span><span class="description">Ghostly wail</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(827); return false;" class="play-button">&#x23F5;</span><span class="description">Ghoul attack</span></div>
+	<div class="draggable category-combat category-ambient"><span onclick="javascript:play(1289); return false;" class="play-button">&#x23F5;</span><span class="description">Giant War Horn</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(1366); return false;" class="play-button">&#x23F5;</span><span class="description">Giant noise</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(1163); return false;" class="play-button">&#x23F5;</span><span class="description">Giant slam attack</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(303); return false;" class="play-button">&#x23F5;</span><span class="description">Glass smash</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(6018); return false;" class="play-button">&#x23F5;</span><span class="description">Goblin Laugh</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(615); return false;" class="play-button">&#x23F5;</span><span class="description">Goblin growls</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(2429); return false;" class="play-button">&#x23F5;</span><span class="description">Grappling hook</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(2616); return false;" class="play-button">&#x23F5;</span><span class="description">Greasing</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2461); return false;" class="play-button">&#x23F5;</span><span class="description">Growl</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(117); return false;" class="play-button">&#x23F5;</span><span class="description">Growls</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(238); return false;" class="play-button">&#x23F5;</span><span class="description">Gulls</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(1166); return false;" class="play-button">&#x23F5;</span><span class="description">Hag</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(5586); return false;" class="play-button">&#x23F5;</span><span class="description">Hellcat snarls</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(1515); return false;" class="play-button">&#x23F5;</span><span class="description">Horse</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(4404); return false;" class="play-button">&#x23F5;</span><span class="description">Huge monster</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1272); return false;" class="play-button">&#x23F5;</span><span class="description">Hurled Stone</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3372); return false;" class="play-button">&#x23F5;</span><span class="description">Huzzah</span></div>
+	<div class="draggable category-ambient category-combat"><span onclick="javascript:play(2645); return false;" class="play-button">&#x23F5;</span><span class="description">Injury</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1426); return false;" class="play-button">&#x23F5;</span><span class="description">Insect flyby</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(4102); return false;" class="play-button">&#x23F5;</span><span class="description">Into the water</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2464); return false;" class="play-button">&#x23F5;</span><span class="description">Laugh</span></div>
+	<div class="draggable category-magic category-combat"><span onclick="javascript:play(22); return false;" class="play-button">&#x23F5;</span><span class="description">Lightning spell</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2782); return false;" class="play-button">&#x23F5;</span><span class="description">Longsword hit</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(374); return false;" class="play-button">&#x23F5;</span><span class="description">Mad laugh</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(3200); return false;" class="play-button">&#x23F5;</span><span class="description">Mastiff woof</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2239); return false;" class="play-button">&#x23F5;</span><span class="description">Mysterious howl</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1519); return false;" class="play-button">&#x23F5;</span><span class="description">Night Bird</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(235); return false;" class="play-button">&#x23F5;</span><span class="description">Oh No!</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(23); return false;" class="play-button">&#x23F5;</span><span class="description">Ooooooo</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(2693); return false;" class="play-button">&#x23F5;</span><span class="description">Open scrollcase</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(2437); return false;" class="play-button">&#x23F5;</span><span class="description">Opening lock</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(259); return false;" class="play-button">&#x23F5;</span><span class="description">Passing a waterfall</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(2438); return false;" class="play-button">&#x23F5;</span><span class="description">Picking lock</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(4477); return false;" class="play-button">&#x23F5;</span><span class="description">Pig</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(3876); return false;" class="play-button">&#x23F5;</span><span class="description">Pigs</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(364); return false;" class="play-button">&#x23F5;</span><span class="description">Psycho scream</span></div>
+	<div class="draggable category-combat category-action"><span onclick="javascript:play(304); return false;" class="play-button">&#x23F5;</span><span class="description">Punch</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2450); return false;" class="play-button">&#x23F5;</span><span class="description">Rapier pierce</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(1841); return false;" class="play-button">&#x23F5;</span><span class="description">Rat</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3573); return false;" class="play-button">&#x23F5;</span><span class="description">Roar</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(113); return false;" class="play-button">&#x23F5;</span><span class="description">Roars</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2635); return false;" class="play-button">&#x23F5;</span><span class="description">Robe swoosh</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(1511); return false;" class="play-button">&#x23F5;</span><span class="description">Rooster</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(5937); return false;" class="play-button">&#x23F5;</span><span class="description">Rumble</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(3374); return false;" class="play-button">&#x23F5;</span><span class="description">Sad trombone</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2748); return false;" class="play-button">&#x23F5;</span><span class="description">Scimitar hit</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(363); return false;" class="play-button">&#x23F5;</span><span class="description">Scornful laugh</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(4401); return false;" class="play-button">&#x23F5;</span><span class="description">Scream</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3008); return false;" class="play-button">&#x23F5;</span><span class="description">Screams</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3626); return false;" class="play-button">&#x23F5;</span><span class="description">Screech</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(1517); return false;" class="play-button">&#x23F5;</span><span class="description">Sheep</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(609); return false;" class="play-button">&#x23F5;</span><span class="description">Ship ram</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(2476); return false;" class="play-button">&#x23F5;</span><span class="description">Shortsword slash</span></div>
+	<div class="draggable category-ambient category-combat"><span onclick="javascript:play(3627); return false;" class="play-button">&#x23F5;</span><span class="description">Slam</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(82); return false;" class="play-button">&#x23F5;</span><span class="description">Smashing a wooden door</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(8768); return false;" class="play-button">&#x23F5;</span><span class="description">Snort</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(974); return false;" class="play-button">&#x23F5;</span><span class="description">Something big out there</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(258); return false;" class="play-button">&#x23F5;</span><span class="description">Something big</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2498); return false;" class="play-button">&#x23F5;</span><span class="description">Spark</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(5084); return false;" class="play-button">&#x23F5;</span><span class="description">Splash</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2692); return false;" class="play-button">&#x23F5;</span><span class="description">Staff hit</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(1035); return false;" class="play-button">&#x23F5;</span><span class="description">Sword clash</span></div>
+	<div class="draggable category-action"><span onclick="javascript:play(3601); return false;" class="play-button">&#x23F5;</span><span class="description">Thrown stone</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1838); return false;" class="play-button">&#x23F5;</span><span class="description">Thunder clap</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1007); return false;" class="play-button">&#x23F5;</span><span class="description">Thunder claps (softer)</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(155); return false;" class="play-button">&#x23F5;</span><span class="description">Thunder claps</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(5936); return false;" class="play-button">&#x23F5;</span><span class="description">Thunder roll</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(257); return false;" class="play-button">&#x23F5;</span><span class="description">Toss a rock in</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1501); return false;" class="play-button">&#x23F5;</span><span class="description">Tumbling pebble</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(1164); return false;" class="play-button">&#x23F5;</span><span class="description">Tumbling rocks</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2451); return false;" class="play-button">&#x23F5;</span><span class="description">Unsheathe fast</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2454); return false;" class="play-button">&#x23F5;</span><span class="description">Unsheathe slow</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2460); return false;" class="play-button">&#x23F5;</span><span class="description">Victorious laugh</span></div>
+	<div class="draggable category-ambient category-combat"><span onclick="javascript:play(7764); return false;" class="play-button">&#x23F5;</span><span class="description">Victory</span></div>
+	<div class="draggable category-combat category-ambient"><span onclick="javascript:play(5197); return false;" class="play-button">&#x23F5;</span><span class="description">War Horn</span></div>
+	<div class="draggable category-combat"><span onclick="javascript:play(1179); return false;" class="play-button">&#x23F5;</span><span class="description">Weapon impact</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(4052); return false;" class="play-button">&#x23F5;</span><span class="description">Weird bug</span></div>
+	<div class="draggable category-ambient category-creature"><span onclick="javascript:play(114); return false;" class="play-button">&#x23F5;</span><span class="description">Weird distant animals</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(2434); return false;" class="play-button">&#x23F5;</span><span class="description">Whoosh passed</span></div>
+	<div class="draggable category-misc"><span onclick="javascript:play(300); return false;" class="play-button">&#x23F5;</span><span class="description">Wilhelm scream</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(243); return false;" class="play-button">&#x23F5;</span><span class="description">Witch cackle</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(5587); return false;" class="play-button">&#x23F5;</span><span class="description">Witch's laugh</span></div>
+	<div class="draggable category-creature category-ambient"><span onclick="javascript:play(5584); return false;" class="play-button">&#x23F5;</span><span class="description">Woman laugh</span></div>
+	<div class="draggable category-creature category-ambient"><span onclick="javascript:play(762); return false;" class="play-button">&#x23F5;</span><span class="description">Woman scream</span></div>
+	<div class="draggable category-ambient"><span onclick="javascript:play(3373); return false;" class="play-button">&#x23F5;</span><span class="description">Yay!</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(3312); return false;" class="play-button">&#x23F5;</span><span class="description">Zombie Growl</span></div>
+	<div class="draggable category-creature"><span onclick="javascript:play(3013); return false;" class="play-button">&#x23F5;</span><span class="description">Zombie Roar</span></div>
 </div>
 </html>
